@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 import matplotlib.pyplot as plt
 import io
+from fastapi.responses import Response
 
 app = FastAPI()
 
