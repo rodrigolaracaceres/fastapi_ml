@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import io
 from fastapi.responses import Response
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 app = FastAPI()
 
@@ -47,3 +48,24 @@ def plot_regression():
 
     # Devolver la imagen como respuesta
     return Response(content=img_io.getvalue(), media_type="image/png")
+
+@app.get("/metrics")
+def get_metrics():
+    """Calcula y devuelve métricas del modelo"""
+    # Simulación de datos (mismos usados en el modelo)
+    np.random.seed(42)
+    X = np.random.rand(100, 1) * 10
+    y = 2.5 * X + np.random.randn(100, 1) * 2
+
+    # Predicciones del modelo
+    y_pred = model.predict(X)
+    
+    rmse = mean_squared_error(y, y_pred, squared=False)  # Raíz del Error Cuadrático Medio
+    mae = mean_absolute_error(y, y_pred)  # Error Absoluto Medio
+    r2 = r2_score(y, y_pred)  # Coeficiente de Determinación (R²)
+
+    return {
+        "R² Score": round(r2, 4),
+        "RMSE": round(rmse, 4),
+        "MAE": round(mae, 4)
+    }
