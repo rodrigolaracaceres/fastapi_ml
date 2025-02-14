@@ -60,3 +60,4 @@ virtualenv==20.16.5
 visitor==0.1.3
 Werkzeug==2.2.2
 uvicorn
+io
