@@ -60,7 +60,7 @@ def get_metrics():
     # Predicciones del modelo
     y_pred = model.predict(X)
     
-    rmse = mean_squared_error(y, y_pred, squared=False)  # Raíz del Error Cuadrático Medio
+    rmse = mean_squared_error(y, y_pred) ** 0.5  # Raíz del Error Cuadrático Medio
     mae = mean_absolute_error(y, y_pred)  # Error Absoluto Medio
     r2 = r2_score(y, y_pred)  # Coeficiente de Determinación (R²)
 
